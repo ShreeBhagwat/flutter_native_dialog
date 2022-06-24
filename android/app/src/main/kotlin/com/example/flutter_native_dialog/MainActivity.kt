@@ -8,6 +8,7 @@ import io.flutter.plugin.common.MethodChannel
 class MainActivity: FlutterActivity() {
 
     val channel = "DIALOG"
+    private  var methodResult: MethodChannel.Result? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -20,11 +21,25 @@ class MainActivity: FlutterActivity() {
           val dialog = Dialog(activity)
              dialog.setTitle(dialogMessage)
              dialog.show()
+             sendSuccessResultData();
+             methodResult = result;
 
-             
+         }else{
+             sendErrorResultData()
+             methodResult = result;
+
          }
      }
     }
+    private fun sendSuccessResultData() {
+        var resultData = "Success Data from native result"
+        methodResult?.success(resultData)
 
+    }
+
+    private fun sendErrorResultData(){
+        var errorData = "Error Data from native result"
+        methodResult?.error("0", errorData, "");
+    }
 
 }

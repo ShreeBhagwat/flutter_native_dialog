@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   final TextEditingController _controller = TextEditingController();
@@ -24,15 +23,16 @@ class HomePage extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   String message;
                   if (_controller.text.isEmpty) {
                     message = 'Please add a dialog message';
                   } else {
                     message = _controller.text;
                   }
-                  MethodChannel(channel)
+                  final result = await MethodChannel(channel)
                       .invokeMethod(channelMethod, message);
+                  print(result.toString());
                 },
                 child: const Text('Show Dialog'))
           ],
