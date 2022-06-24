@@ -3,6 +3,10 @@ import Flutter
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
+
+private var flutterResult: FlutterResult? = nil
+
+
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -24,11 +28,17 @@ import Flutter
                   
                   UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
               }
+              
+              result("Success Data from native iOS")
       
+          }else{
+              result(FlutterError(code: "Error", message: "Method not found", details: nil))
+
           }
       })
       
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
+
 }
